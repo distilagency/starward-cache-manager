@@ -1,0 +1,19 @@
+{
+  "generator-plugin-wp": {
+    "name": "starward-cache-manager",
+    "homepage": "https://github.com/distilagency/starward_wp",
+    "description": "A plugin to manage your Starward Redis cache via webhooks",
+    "version": "0.0.0",
+    "author": "BirdBrain",
+    "authoremail": "michael@birdbrain.com.au",
+    "authorurl": "https://www.birdbrain.com.au/",
+    "license": "GPLv2",
+    "slug": "starward-cache-manager",
+    "classname": "StarwardCacheManager",
+    "mainclassname": "StarwardCacheManager",
+    "classprefix": "SCM_",
+    "prefix": "starward_cache_manager",
+    "year": 2017,
+    "currentVersionWP": "4.7.2"
+  }
+}

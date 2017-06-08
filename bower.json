@@ -1,0 +1,18 @@
+{
+  "name": "starward-cache-manager",
+  "description": "A plugin to manage your Starward Redis cache via webhooks",
+  "license": "GPLv2",
+  "authors": [
+    "BirdBrain"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}
