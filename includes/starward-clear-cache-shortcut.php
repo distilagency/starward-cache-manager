@@ -13,12 +13,12 @@ function clear_redis_cache_toolbar($wp_admin_bar) {
 
     
     $starward_api = $settings['SCM_starward_api'];
-    if (is_null($starward_api)) {
+    if (is_null($starward_api) || empty($starward_api)) {
         $href = admin_url( 'options-general.php?page=starward_cache' );
     }
 	$args = array(
 		'id' => 'clear-redis-cache',
-		'title' => 'Clear Starward Cache', 
+		'title' => '<span>Clear Starward Cache</span><span class="dashicons-before dashicons-yes go-invisible"></span>', 
         'href' => $href,
 		'meta' => array(
 			'class' => 'clear-redis-cache', 
@@ -31,9 +31,9 @@ function clear_redis_cache_toolbar($wp_admin_bar) {
 add_action('admin_bar_menu', 'clear_redis_cache_toolbar', 999);
 
 
-add_action( 'wp_ajax_my_action', 'my_action' );
+add_action( 'wp_ajax_clear_starward_cache', 'clear_starward_cache' );
 
-function my_action() {
+function clear_starward_cache() {
     $response = StarwardCacheManager::flush_redis();
     if($response['status'] == 'error') {
         echo $response['message'] ;

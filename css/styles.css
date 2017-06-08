@@ -1,0 +1,64 @@
+.clear-redis-cache, .clear-redis-cache div {
+    cursor: pointer !important;
+}
+
+.clear-redis-cache .dashicons-before:before {
+    margin-top: 7px;
+    margin-left: 3px;
+}
+
+.clear-redis-cache .dashicons-no {
+    color: rgb(213, 78, 33);
+}
+
+.clear-redis-cache .dashicons-yes {
+    color: #4BB543;
+}
+
+.clear-redis-cache .dashicons-image-rotate:before {
+    font-size: 14px;
+    height: 14px;
+    margin-top: 10px;
+}
+
+.go-invisible::before {
+    visibility: hidden;
+}
+
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(-360deg);
+    -moz-transform: rotate(-360deg);
+    -webkit-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+}
+.rotating:before {
+  -webkit-animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
+  -ms-animation: rotating 2s linear infinite;
+  -o-animation: rotating 2s linear infinite;
+  animation: rotating 2s linear infinite;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}

@@ -414,6 +414,7 @@ function starward_cache_manager() {
 }
 
 function load_scripts() {
+	wp_enqueue_style('clearCacheStyles', plugin_dir_url(__FILE__) . 'css/styles.css');
 	wp_enqueue_script('clearCache', plugin_dir_url(__FILE__) . 'js/clearCache.js', array('jquery'));
 }
 

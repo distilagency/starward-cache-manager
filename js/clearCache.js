@@ -1,23 +1,41 @@
 jQuery(document).ready(function() {
-    console.log("Document Ready");
     var clearCacheListItem = jQuery('li.clear-redis-cache');
+    var label = clearCacheListItem.find('.dashicons-before');
     var clearCacheUrl = clearCacheListItem.find('a.clear-redis-url').attr('href');
     clearCacheListItem.find('div').on('click', function() {
         // jQuery.get(clearCacheUrl, function(){ 
         //     console.log("Cache Cleared");
         // });
-        		var data = {
-			'action': 'my_action',
-			'whatever': 1234
+        var data = {
+			'action': 'clear_starward_cache',
 		};
 
-		// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+        var hideAfter = function(seconds) {
+            return function () {
+                setTimeout(function() {
+                    label.attr('class', 'dashicons-before dashicons-yes go-invisible');
+                }, seconds)
+            }
+        }
+
+        var hideAftertwoSeconds = hideAfter(2000);
+		
+        label.attr('class', 'dashicons-before dashicons-image-rotate rotating');
 		jQuery.post(ajaxurl, data, function(error) {
 			if(error) {
                 console.error(error);
+                label.attr('class', 'dashicons-before dashicons-no');
+                hideAftertwoSeconds();
             } else {
-                console.log("Cleared the Starward Cache!");
+                console.log('Cleared the Starward Cache!');
+                label.attr('class', 'dashicons-before dashicons-yes');
+                hideAftertwoSeconds();
             }
-		});
+		}).fail(function(error) {
+            label.attr('class', 'dashicons-before dashicons-no');
+            hideAftertwoSeconds();
+        })
     });
+
+    // clearCacheListItem.append('<span class="flush-icon"></span>')
 });
