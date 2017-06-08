@@ -7,7 +7,7 @@
  * Author:      BirdBrain
  * Author URI:  https://www.birdbrain.com.au/
  * Donate link: https://github.com/distilagency/starward_wp
- * License:     GPLv2
+ * License:     MIT
  * Text Domain: starward-cache-manager
  * Domain Path: /languages
  *

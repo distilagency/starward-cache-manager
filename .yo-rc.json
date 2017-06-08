@@ -7,7 +7,7 @@
     "author": "BirdBrain",
     "authoremail": "michael@birdbrain.com.au",
     "authorurl": "https://www.birdbrain.com.au/",
-    "license": "GPLv2",
+    "license": "MIT",
     "slug": "starward-cache-manager",
     "classname": "StarwardCacheManager",
     "mainclassname": "StarwardCacheManager",

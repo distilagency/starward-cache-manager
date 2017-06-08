@@ -9,11 +9,11 @@ module.exports = function( grunt ) {
 		' * <%= pkg.author.url %>\n' +
 		' *\n' +
 		' * Copyright (c) <%= grunt.template.today("yyyy") %>;\n' +
-		' * Licensed GPLv2+\n' +
+		' * Licensed MIT+\n' +
 		' */\n';
 
 	var compactBannerTemplate = '/** ' +
-		'<%= pkg.title %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> | <%= pkg.author.url %> | Copyright (c) <%= grunt.template.today("yyyy") %>; | Licensed GPLv2+' +
+		'<%= pkg.title %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> | <%= pkg.author.url %> | Copyright (c) <%= grunt.template.today("yyyy") %>; | Licensed MIT+' +
 		' **/\n';
 
 	// Project configuration
