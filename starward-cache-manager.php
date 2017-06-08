@@ -115,14 +115,6 @@ final class StarwardCacheManager {
 	protected static $single_instance = null;
 
 	/**
-	 * Instance of SCM_Starward_Cache
-	 *
-	 * @since0.0.0
-	 * @var SCM_Starward_Cache
-	 */
-	protected $starward_cache;
-
-	/**
 	 * Creates or returns an instance of this class.
 	 *
 	 * @since   0.0.0
@@ -154,7 +146,6 @@ final class StarwardCacheManager {
 	 */
 	public function plugin_classes() {
 
-		$this->starward_cache = new SCM_Starward_Cache( $this );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
@@ -360,6 +351,55 @@ final class StarwardCacheManager {
 		$url = $url ? $url : trailingslashit( plugin_dir_url( __FILE__ ) );
 		return $url . $path;
 	}
+
+	public static function flush_redis() {
+		$settings = get_option( 'SCM_settings' );
+		if(is_null($settings)) {
+			return array(
+							'status' => 'error',
+							'message' => 'Please setup Starward Redis Cache Manager first!!');
+		}
+
+		
+		$starward_api = $settings['SCM_starward_api'];
+		if (is_null($starward_api)) {
+			return array(
+							'status' => 'error',
+							'message' => 'Please setup Starward Redis Cache Manager first!!');
+		}
+
+		$clear_redis_url = $starward_api . '/flushredis';
+		$response = wp_remote_get($clear_redis_url);
+
+		if(is_wp_error($response)) {
+			return array(
+							'status' => 'error',
+							'message' => 'Issue with calling the flush endpoint: ' . $clear_redis_url . 'see error: ' . $response);
+		}
+
+		try {
+			$responseJson = json_decode($response['body']);
+		} catch (Exception $e) {
+			return array(
+						'status' => 'error',
+						'message' => 'Got a weird response from the API!: ' . $clear_redis_url);
+		}
+
+		if (is_null($responseJson) || is_null($responseJson->success)) {
+			return array(
+						'status' => 'error',
+						'message' => 'Got a weird response from the API!: ' . $clear_redis_url);
+		}
+
+		if(!$responseJson->success) {
+			return array(
+						'status' => 'error',
+						'message' => 'success was false!: ' . $clear_redis_url);
+		}
+
+		return array(
+						'status' => 'success');
+	}
 }
 
 /**
@@ -373,9 +413,30 @@ function starward_cache_manager() {
 	return StarwardCacheManager::get_instance();
 }
 
+function load_scripts() {
+	wp_enqueue_script('clearCache', plugin_dir_url(__FILE__) . 'js/clearCache.js', array('jquery'));
+}
+
 // Kick it off.
 add_action( 'plugins_loaded', array( starward_cache_manager(), 'hooks' ) );
+add_action( 'admin_enqueue_scripts', 'load_scripts' );
 
 // Activation and deactivation.
 register_activation_hook( __FILE__, array( starward_cache_manager(), '_activate' ) );
 register_deactivation_hook( __FILE__, array( starward_cache_manager(), '_deactivate' ) );
+
+if(!StarwardCacheManager::include_file( 'includes/starward-cache-options')) {
+	throw new Exception('includes/starward-cache-options NOT included');
+} 
+
+if(!StarwardCacheManager::include_file( 'includes/starward-clear-cache-shortcut')) {
+	throw new Exception('includes/starward-clear-cache-shortcut NOT included');
+} 
+
+
+// Flush Redis
+add_action( 'save_post', 'flush_redis' );
+function flush_redis()
+{
+  StarwardCacheManager::flush_redis();
+}
