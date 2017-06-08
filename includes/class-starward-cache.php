@@ -121,4 +121,3 @@ class SCM_Starward_Cache {
 		<?php
 	}
 }
-?>
