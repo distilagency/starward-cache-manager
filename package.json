@@ -7,7 +7,7 @@
 		"name": "BirdBrain",
 		"url": "https://www.birdbrain.com.au/"
 	},
-	"license": "GPLv2",
+	"license": "MIT",
 	"devDependencies": {
 		"grunt": "latest",
 		"grunt-contrib-watch": "latest",
